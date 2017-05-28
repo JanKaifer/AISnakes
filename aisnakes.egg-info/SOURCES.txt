@@ -1,0 +1,10 @@
+aisnakes
+brains.py
+config.py
+setup.py
+snakes.py
+aisnakes.egg-info/PKG-INFO
+aisnakes.egg-info/SOURCES.txt
+aisnakes.egg-info/dependency_links.txt
+aisnakes.egg-info/requires.txt
+aisnakes.egg-info/top_level.txt
