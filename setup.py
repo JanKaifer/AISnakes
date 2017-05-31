@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name="aisnakes",
-    version="1.4",
+    version="1.5",
     scripts=["aisnakes", "config.py", "brains.py", "snakes.py"],
     install_requires=["numpy", "arcade"],
 

@@ -10,7 +10,22 @@ import math
 import sys
 
 if sys.argv:
-    pass
+    for arg in sys.argv[1:]:
+        if "-h" in arg:
+            print("usage: " + str(sys.argv[0]) + " [variabiles=value]\n"
+                                                 "\tTries to tech snakes how to survive.\n"
+                                                 "\tPossible VARIABILES:\n"
+                                                 "\t\tSCREEN_WIDTH\t- screen width in pixels\n"
+                                                 "\t\tSCREEN_HEIGHT\t- screen height in pixels\n"
+                                                 "\t\tRECT_WIDTH\t- field width in pixels\n"
+                                                 "\t\tRECT_HEIGHT\t- field height in pixels\n"
+                                                 "\t\tGAP\t\t- gaps between body segments\n"
+                                                 "\t\tAPPLES\t- number of apples\n"
+                                                 "\t\tSNAKES\t- number of snakes\n")
+            quit()
+        else:
+            exec(arg)
+
 
 class MyApplication(ar.Window):
     def __init__(self):
@@ -65,18 +80,22 @@ class MyApplication(ar.Window):
     def snake_died(self, id):
         if self.snakes[id].longest > self.longest:
             self.longest = self.snakes[id].longest
-            print("New high score. Snake number %d had %d segments and survived %d ticks." % (id, self.longest, self.snakes[id].ticks))
+            print("New high score. Snake number %d had %d segments and survived %d ticks." % (
+                id, self.longest, self.snakes[id].ticks))
 
         elif self.snakes[id].ticks > self.oldest:
             self.oldest = self.snakes[id].ticks
-            print("New high score. Snake number %d had %d segments and survived %d ticks." % (id, self.longest, self.snakes[id].ticks))
+            print("New high score. Snake number %d had %d segments and survived %d ticks." % (
+                id, self.longest, self.snakes[id].ticks))
 
         del self.snakes[id]
         self.spawn_snake(*self.get_surviving_DNA())
 
     def get_free_place(self):
         pos = None
-        while not pos or any([self.snakes[snake_id].lays_on(pos) for snake_id in self.snakes] + [apple.lays_on(pos) for apple in self.apples]):
+        while not pos or any(
+                        [self.snakes[snake_id].lays_on(pos) for snake_id in self.snakes] + [apple.lays_on(pos) for apple
+                                                                                            in self.apples]):
             pos = [math.floor(random.random() * (SCREEN_WIDTH // RECT_WIDTH)),
                    math.floor(random.random() * (SCREEN_HEIGHT // RECT_HEIGHT))]
         return pos
@@ -89,7 +108,7 @@ class MyApplication(ar.Window):
         best_one = [np.array([]), 0]
         best_two = [np.array([]), 0]
         for snake_id in self.snakes:
-            score = len(self.snakes[snake_id].body)*self.snakes[snake_id].ticks
+            score = len(self.snakes[snake_id].body) * self.snakes[snake_id].ticks
             if score >= best_one[1]:
                 best_two = best_one
                 best_one = [self.snakes[snake_id].brain.W, score]
